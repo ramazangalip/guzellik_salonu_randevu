@@ -102,14 +102,6 @@ export default function Header({ onOpenLocation }: HeaderProps) {
               Şu an Açık - 19:30&apos;a kadar
             </span>
           </div>
-
-          {/* Trigger Direct PWA Install */}
-          <button
-            onClick={() => window.dispatchEvent(new Event('trigger-direct-pwa-install'))}
-            className="flex items-center gap-1 text-[11px] font-bold text-[#C59B78] hover:text-[#A67B52] bg-amber-50/80 hover:bg-amber-100/80 px-2.5 py-1 rounded-full border border-amber-200/60 transition-all cursor-pointer touch-manipulation active:scale-95"
-          >
-            <span>📱 Uygulamayı İndir</span>
-          </button>
         </div>
       </div>
     </header>

@@ -20,14 +20,15 @@ export default function PwaRegister() {
     // Check if user dismissed banner recently in this session
     const isDismissed = sessionStorage.getItem('aura_pwa_dismissed');
     if (!isDismissed) {
-      const timer = setTimeout(() => setShowBanner(true), 1200);
-      return () => clearTimeout(timer);
+      setShowBanner(true);
     }
 
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      if (!isDismissed) setShowBanner(true);
+      if (!isDismissed) {
+        setShowBanner(true);
+      }
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
