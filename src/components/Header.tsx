@@ -103,9 +103,9 @@ export default function Header({ onOpenLocation }: HeaderProps) {
             </span>
           </div>
 
-          {/* Trigger PWA Modal */}
+          {/* Trigger Direct PWA Install */}
           <button
-            onClick={openPwaModal}
+            onClick={() => window.dispatchEvent(new Event('trigger-direct-pwa-install'))}
             className="flex items-center gap-1 text-[11px] font-bold text-[#C59B78] hover:text-[#A67B52] bg-amber-50/80 hover:bg-amber-100/80 px-2.5 py-1 rounded-full border border-amber-200/60 transition-all cursor-pointer touch-manipulation active:scale-95"
           >
             <span>📱 Uygulamayı İndir</span>

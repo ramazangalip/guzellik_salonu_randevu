@@ -179,7 +179,10 @@ export default function HomePage() {
       {/* Modals & Sticky Bar */}
       <AppointmentModal />
       <LocationModal isOpen={locationModalOpen} onClose={() => setLocationModalOpen(false)} />
-      <StickyBottomBar onOpenLocation={() => setLocationModalOpen(true)} />
+      <StickyBottomBar
+        isLocationOpen={locationModalOpen}
+        onOpenLocation={() => setLocationModalOpen(true)}
+      />
     </div>
   );
 }
