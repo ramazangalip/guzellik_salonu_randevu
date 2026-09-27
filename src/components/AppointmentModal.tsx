@@ -165,14 +165,14 @@ Randevumu onaylamanızı rica ederim.`;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={closeModal}
-          className="fixed inset-0 bg-stone-900/70 backdrop-blur-sm"
+          className="fixed inset-0 bg-stone-900/80 backdrop-blur-sm z-[100]"
         />
 
         {/* Modal Window (Bottom Sheet style on mobile, centered card on desktop) */}
@@ -181,10 +181,13 @@ Randevumu onaylamanızı rica ederim.`;
           animate={{ y: 0 }}
           exit={{ y: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 280 }}
-          className="relative w-full max-w-lg bg-[#FAF8F5] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col border border-stone-200"
+          className="relative w-full max-w-lg bg-[#FAF8F5] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden z-[101] max-h-[88vh] flex flex-col border border-stone-200"
         >
+          {/* Mobile Pull Indicator Handle */}
+          <div className="w-12 h-1.5 bg-stone-300 rounded-full mx-auto my-2 sm:hidden shrink-0" />
+
           {/* Header */}
-          <div className="bg-[#1C1917] text-white p-4 sm:p-5 flex items-center justify-between relative">
+          <div className="bg-[#1C1917] text-white p-4 sm:p-5 flex items-center justify-between relative shrink-0">
             <div>
               <div className="flex items-center gap-1.5 text-xs text-[#C59B78] font-semibold">
                 <Sparkles className="w-3.5 h-3.5" />
@@ -196,7 +199,7 @@ Randevumu onaylamanızı rica ederim.`;
             </div>
             <button
               onClick={closeModal}
-              className="w-8 h-8 rounded-full bg-stone-800 text-stone-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full bg-stone-800 text-stone-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer touch-manipulation"
             >
               <X className="w-4 h-4" />
             </button>
@@ -204,7 +207,7 @@ Randevumu onaylamanızı rica ederim.`;
 
           {/* Progress Bar (For steps 1-3) */}
           {step < 4 && (
-            <div className="w-full bg-stone-200 h-1.5 flex">
+            <div className="w-full bg-stone-200 h-1.5 flex shrink-0">
               <div
                 className="bg-[#C59B78] h-full transition-all duration-300"
                 style={{ width: `${(step / 3) * 100}%` }}
@@ -213,7 +216,7 @@ Randevumu onaylamanızı rica ederim.`;
           )}
 
           {/* Body Content */}
-          <div className="p-4 sm:p-6 overflow-y-auto space-y-4">
+          <div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
             {errorMsg && (
               <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl font-medium">
                 {errorMsg}
@@ -288,7 +291,7 @@ Randevumu onaylamanızı rica ederim.`;
                         key={spec}
                         type="button"
                         onClick={() => setSelectedSpecialist(spec)}
-                        className={`p-2.5 rounded-xl text-xs text-left font-medium border transition-all flex items-center justify-between cursor-pointer ${
+                        className={`p-3 rounded-xl text-xs text-left font-medium border transition-all flex items-center justify-between cursor-pointer touch-manipulation ${
                           selectedSpecialist === spec
                             ? 'bg-[#1C1917] text-white border-[#1C1917] shadow-sm'
                             : 'bg-white text-stone-700 border-stone-200 hover:border-stone-300'
@@ -322,7 +325,7 @@ Randevumu onaylamanızı rica ederim.`;
                           key={item.raw}
                           type="button"
                           onClick={() => setSelectedDate(item.raw)}
-                          className={`flex flex-col items-center justify-center p-2.5 rounded-2xl min-w-[70px] border transition-all cursor-pointer ${
+                          className={`flex flex-col items-center justify-center p-2.5 rounded-2xl min-w-[72px] border transition-all cursor-pointer touch-manipulation ${
                             isSel
                               ? 'bg-[#1C1917] text-white border-[#1C1917] shadow-md ring-2 ring-[#C59B78]/40'
                               : 'bg-white text-stone-700 border-stone-200 hover:border-stone-300'
@@ -353,7 +356,7 @@ Randevumu onaylamanızı rica ederim.`;
                           key={slot}
                           type="button"
                           onClick={() => setSelectedTime(slot)}
-                          className={`py-2 px-1 rounded-xl text-xs font-bold border transition-all cursor-pointer text-center ${
+                          className={`py-2.5 px-1 rounded-xl text-xs font-bold border transition-all cursor-pointer touch-manipulation text-center ${
                             isSel
                               ? 'bg-[#C59B78] text-white border-[#C59B78] shadow-md scale-102'
                               : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-50'
@@ -390,7 +393,7 @@ Randevumu onaylamanızı rica ederim.`;
                       placeholder="Örn: Zeynep Yılmaz"
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-white border border-stone-300 rounded-xl text-xs font-medium text-stone-900 focus:ring-2 focus:ring-[#C59B78] outline-none"
+                      className="w-full pl-9 pr-3 py-3 bg-white border border-stone-300 rounded-xl text-xs font-medium text-stone-900 focus:ring-2 focus:ring-[#C59B78] outline-none"
                     />
                   </div>
                 </div>
@@ -406,7 +409,7 @@ Randevumu onaylamanızı rica ederim.`;
                       placeholder="05xx xxx xx xx"
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-white border border-stone-300 rounded-xl text-xs font-medium text-stone-900 focus:ring-2 focus:ring-[#C59B78] outline-none"
+                      className="w-full pl-9 pr-3 py-3 bg-white border border-stone-300 rounded-xl text-xs font-medium text-stone-900 focus:ring-2 focus:ring-[#C59B78] outline-none"
                     />
                   </div>
                 </div>
@@ -422,7 +425,7 @@ Randevumu onaylamanızı rica ederim.`;
                       placeholder="Cilt tipiniz veya belirtmek istediğiniz detaylar..."
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-white border border-stone-300 rounded-xl text-xs font-medium text-stone-900 focus:ring-2 focus:ring-[#C59B78] outline-none"
+                      className="w-full pl-9 pr-3 py-3 bg-white border border-stone-300 rounded-xl text-xs font-medium text-stone-900 focus:ring-2 focus:ring-[#C59B78] outline-none"
                     />
                   </div>
                 </div>
@@ -489,7 +492,7 @@ Randevumu onaylamanızı rica ederim.`;
                     href={getWhatsAppMessageUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3 px-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-98"
+                    className="w-full py-3 px-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-98 touch-manipulation"
                   >
                     <MessageCircle className="w-4 h-4 fill-white" />
                     <span>WhatsApp ile Anında Teyit Et</span>
@@ -497,7 +500,7 @@ Randevumu onaylamanızı rica ederim.`;
 
                   <button
                     onClick={closeModal}
-                    className="w-full py-2.5 text-xs text-stone-500 hover:text-stone-900 font-medium"
+                    className="w-full py-2.5 text-xs text-stone-500 hover:text-stone-900 font-medium cursor-pointer"
                   >
                     Kapat ve Kataloğa Dön
                   </button>
@@ -508,12 +511,12 @@ Randevumu onaylamanızı rica ederim.`;
 
           {/* Footer Actions (Steps 1-3) */}
           {step < 4 && (
-            <div className="p-4 bg-stone-100 border-t border-stone-200 flex items-center justify-between gap-3">
+            <div className="p-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-stone-100 border-t border-stone-200 flex items-center justify-between gap-3 shrink-0">
               {step > 1 ? (
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="px-4 py-2.5 rounded-xl bg-white border border-stone-300 text-stone-700 text-xs font-semibold hover:bg-stone-50 flex items-center gap-1 cursor-pointer"
+                  className="px-4 py-2.5 rounded-xl bg-white border border-stone-300 text-stone-700 text-xs font-semibold hover:bg-stone-50 flex items-center gap-1 cursor-pointer touch-manipulation"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   Geri
@@ -525,7 +528,7 @@ Randevumu onaylamanızı rica ederim.`;
               <button
                 type="button"
                 onClick={handleNextStep}
-                className="px-5 py-2.5 rounded-xl bg-[#1C1917] hover:bg-stone-800 text-stone-100 text-xs font-bold flex items-center gap-1.5 shadow-md ml-auto cursor-pointer border border-stone-700"
+                className="px-5 py-3 rounded-xl bg-[#1C1917] hover:bg-stone-800 text-stone-100 text-xs font-bold flex items-center gap-1.5 shadow-md ml-auto cursor-pointer border border-stone-700 touch-manipulation active:scale-97"
               >
                 <span>{step === 3 ? 'Randevuyu Onayla' : 'Devam Et'}</span>
                 <ChevronRight className="w-4 h-4 text-[#C59B78]" />
