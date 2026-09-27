@@ -195,6 +195,9 @@ interface ContextType {
   setSelectedCategory: (cat: CategoryType) => void;
   bookingModalOpen: boolean;
   setBookingModalOpen: (open: boolean) => void;
+  pwaModalOpen: boolean;
+  setPwaModalOpen: (open: boolean) => void;
+  openPwaModal: () => void;
   selectedServiceForBooking: Service | null;
   openBookingForService: (service?: Service) => void;
   addAppointment: (appointment: Omit<Appointment, 'id' | 'createdAt' | 'status'>) => Appointment;
@@ -215,8 +218,13 @@ export function AuraProvider({ children }: { children: React.ReactNode }) {
   const [appointments, setAppointments] = useState<Appointment[]>(INITIAL_APPOINTMENTS);
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('Tümü');
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
+  const [pwaModalOpen, setPwaModalOpen] = useState(false);
   const [selectedServiceForBooking, setSelectedServiceForBooking] = useState<Service | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const openPwaModal = () => {
+    setPwaModalOpen(true);
+  };
 
   // Client hydration check & localStorage sync
   useEffect(() => {
@@ -360,6 +368,9 @@ export function AuraProvider({ children }: { children: React.ReactNode }) {
         setSelectedCategory,
         bookingModalOpen,
         setBookingModalOpen,
+        pwaModalOpen,
+        setPwaModalOpen,
+        openPwaModal,
         selectedServiceForBooking,
         openBookingForService,
         addAppointment,

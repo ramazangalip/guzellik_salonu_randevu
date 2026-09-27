@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 export default function Header({ onOpenLocation }: HeaderProps) {
-  const { settings } = useAura();
+  const { settings, openPwaModal } = useAura();
 
   return (
     <header className="w-full bg-[#FAF8F5] sticky top-0 z-40 border-b border-[#F0EAE1]">
@@ -105,8 +105,8 @@ export default function Header({ onOpenLocation }: HeaderProps) {
 
           {/* Trigger PWA Modal */}
           <button
-            onClick={() => window.dispatchEvent(new Event('open-pwa-install'))}
-            className="flex items-center gap-1 text-[11px] font-bold text-[#C59B78] hover:text-[#A67B52] bg-amber-50/80 px-2.5 py-1 rounded-full border border-amber-200/60 transition-all cursor-pointer"
+            onClick={openPwaModal}
+            className="flex items-center gap-1 text-[11px] font-bold text-[#C59B78] hover:text-[#A67B52] bg-amber-50/80 hover:bg-amber-100/80 px-2.5 py-1 rounded-full border border-amber-200/60 transition-all cursor-pointer touch-manipulation active:scale-95"
           >
             <span>📱 Uygulamayı İndir</span>
           </button>

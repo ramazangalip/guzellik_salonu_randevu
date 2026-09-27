@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Download, X, Sparkles, Share, PlusSquare, Smartphone, CheckCircle2, ChevronRight } from 'lucide-react';
+import { useAura } from '@/context/AuraContext';
+import { Download, X, Sparkles, Share, PlusSquare, Smartphone } from 'lucide-react';
 
 export default function PwaRegister() {
+  const { pwaModalOpen, setPwaModalOpen } = useAura();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showBanner, setShowBanner] = useState(false);
   const [showGuideModal, setShowGuideModal] = useState(false);
@@ -21,12 +23,11 @@ export default function PwaRegister() {
     if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone) {
       setIsInstalled(true);
       setShowBanner(false);
-      return;
     }
 
     // Check if user dismissed banner recently in this session
     const isDismissed = sessionStorage.getItem('aura_pwa_dismissed');
-    if (!isDismissed) {
+    if (!isDismissed && !isInstalled) {
       // Show banner after 1.2s delay for a clean entrance
       const timer = setTimeout(() => setShowBanner(true), 1200);
       return () => clearTimeout(timer);
@@ -35,13 +36,14 @@ export default function PwaRegister() {
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      setShowBanner(true);
+      if (!isDismissed) setShowBanner(true);
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     // Listen for custom trigger event from Header or other buttons
     const handleTriggerInstall = () => {
+      setPwaModalOpen(true);
       setShowGuideModal(true);
     };
     window.addEventListener('open-pwa-install', handleTriggerInstall);
@@ -50,7 +52,7 @@ export default function PwaRegister() {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.removeEventListener('open-pwa-install', handleTriggerInstall);
     };
-  }, []);
+  }, [isInstalled, setPwaModalOpen]);
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
@@ -63,6 +65,7 @@ export default function PwaRegister() {
       setDeferredPrompt(null);
     } else {
       // Open interactive instruction modal for iOS or manual browsers
+      setPwaModalOpen(true);
       setShowGuideModal(true);
     }
   };
@@ -72,12 +75,12 @@ export default function PwaRegister() {
     sessionStorage.setItem('aura_pwa_dismissed', 'true');
   };
 
-  if (isInstalled) return null;
+  const isModalVisible = pwaModalOpen || showGuideModal;
 
   return (
     <>
       {/* Floating Top Banner (Appears on Homepage and All Pages) */}
-      {showBanner && (
+      {showBanner && !isInstalled && (
         <div className="fixed top-14 left-3 right-3 z-40 max-w-md mx-auto bg-[#1C1917] text-white rounded-2xl p-3.5 shadow-2xl border border-stone-800 flex items-center justify-between gap-3 animate-bounce-short">
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 rounded-xl bg-stone-800 border border-stone-700 flex items-center justify-center shrink-0 overflow-hidden relative shadow-xs">
@@ -118,10 +121,13 @@ export default function PwaRegister() {
       )}
 
       {/* Interactive PWA Installation Guide Modal (For iOS Safari & Chrome) */}
-      {showGuideModal && (
+      {isModalVisible && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            onClick={() => setShowGuideModal(false)}
+            onClick={() => {
+              setShowGuideModal(false);
+              setPwaModalOpen(false);
+            }}
             className="fixed inset-0 bg-stone-900/80 backdrop-blur-sm"
           />
 
@@ -132,7 +138,10 @@ export default function PwaRegister() {
                 <h3 className="font-bold text-sm">Mobil Uygulamayı Yükle</h3>
               </div>
               <button
-                onClick={() => setShowGuideModal(false)}
+                onClick={() => {
+                  setShowGuideModal(false);
+                  setPwaModalOpen(false);
+                }}
                 className="w-7 h-7 rounded-full bg-stone-800 text-stone-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
@@ -193,7 +202,10 @@ export default function PwaRegister() {
               )}
 
               <button
-                onClick={() => setShowGuideModal(false)}
+                onClick={() => {
+                  setShowGuideModal(false);
+                  setPwaModalOpen(false);
+                }}
                 className="w-full py-3 bg-[#1C1917] hover:bg-stone-800 text-white font-bold text-xs rounded-2xl shadow-md transition-all cursor-pointer border border-stone-700"
               >
                 Anladım, Kapat
