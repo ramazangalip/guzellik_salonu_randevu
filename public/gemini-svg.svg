@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Zemin Gradyanı: Derin, lüks antrasit / siyah tonları -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1E24" />
+      <stop offset="100%" stop-color="#0E0E11" />
+    </linearGradient>
+
+    <!-- İkon Gradyanı: Zarif Şampanya / Rose Gold -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7D7B5" />
+      <stop offset="50%" stop-color="#E5B887" />
+      <stop offset="100%" stop-color="#C89358" />
+    </linearGradient>
+
+    <!-- İnce Işıma Efekti -->
+    <filter id="subtleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Arka Plan (Maskable PWA için güvenli alan uyumlu köşeler) -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <!-- Dış İnce Çember Çerçeve (Klinik ve Estetik Zarafeti) -->
+  <circle cx="256" cy="256" r="190" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-opacity="0.25" stroke-dasharray="8 6" />
+  <circle cx="256" cy="256" r="172" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-opacity="0.4" />
+
+  <!-- Ana Amblem Grubu (Aura - Lotus & Estetik 'A' Monogramı) -->
+  <g filter="url(#subtleGlow)" fill="none" stroke="url(#goldGrad)" stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- Orta Ana Taç Yaprak / A Formunun Zirvesi -->
+    <path d="M256 125 C230 190 230 250 256 315 C282 250 282 190 256 125 Z" 
+          fill="url(#goldGrad)" fill-opacity="0.15" stroke-width="6" />
+
+    <!-- Sol Estetik Eğri (A'nın sol kanadı) -->
+    <path d="M246 175 C190 215 155 270 165 335 C175 400 240 405 256 335" 
+          stroke-width="7" />
+
+    <!-- Sağ Estetik Eğri (A'nın sağ kanadı) -->
+    <path d="M266 175 C322 215 357 270 347 335 C337 400 272 405 256 335" 
+          stroke-width="7" />
+
+    <!-- Yatay Bağlantı Kuşağı (A Harfi Kirişi / Lotus Tabanı) -->
+    <path d="M200 305 Q256 330 312 305" 
+          stroke-width="5" stroke-opacity="0.85" />
+
+    <!-- Tepe Odak Parıltısı -->
+    <circle cx="256" cy="115" r="4.5" fill="url(#goldGrad)" stroke="none" />
+  </g>
+</svg>

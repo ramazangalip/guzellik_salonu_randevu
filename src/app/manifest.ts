@@ -1,0 +1,34 @@
+import { MetadataRoute } from 'next';
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: 'Aura Estetik & Güzellik Merkezi',
+    short_name: 'Aura Estetik',
+    description: 'Nişantaşı Lüks Estetik & Güzellik Merkezi Online Randevu ve Hizmet Kataloğu',
+    start_url: '/',
+    display: 'standalone',
+    background_color: '#FAF8F5',
+    theme_color: '#1C1917',
+    orientation: 'portrait',
+    icons: [
+      {
+        src: '/gemini-svg.svg',
+        sizes: '512x512',
+        type: 'image/svg+xml',
+        purpose: 'any',
+      },
+      {
+        src: '/gemini-svg.svg',
+        sizes: '512x512',
+        type: 'image/svg+xml',
+        purpose: 'maskable',
+      },
+      {
+        src: '/gemini-svg.svg',
+        sizes: '192x192',
+        type: 'image/svg+xml',
+        purpose: 'any',
+      },
+    ],
+  };
+}
