@@ -102,6 +102,14 @@ export default function Header({ onOpenLocation }: HeaderProps) {
               Şu an Açık - 19:30&apos;a kadar
             </span>
           </div>
+
+          {/* Trigger PWA Modal */}
+          <button
+            onClick={() => window.dispatchEvent(new Event('open-pwa-install'))}
+            className="flex items-center gap-1 text-[11px] font-bold text-[#C59B78] hover:text-[#A67B52] bg-amber-50/80 px-2.5 py-1 rounded-full border border-amber-200/60 transition-all cursor-pointer"
+          >
+            <span>📱 Uygulamayı İndir</span>
+          </button>
         </div>
       </div>
     </header>
